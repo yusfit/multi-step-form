@@ -9,19 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="./output.css" rel="stylesheet">
   
   <title>Multi-step form</title>
 </head>
-<body class="bg-blue-100 font-sans">
+<body class="bg-[url('/assets/images/bg-sidebar-mobile.svg')] md:bg-none bg-no-repeat bg-contain w-full h-full bg-blue-100 font-sans">
   <div class="flex items-center justify-center min-h-screen bg-Magnolia">
-    <div class="grid grid-cols-3 m-4 bg-white p-4 rounded-lg shadow-lg">
+    <div class="relative md:bottom-0 bottom-20 grid grid-cols-1 md:grid-cols-3 m-4 md:mt-4 mt-40 bg-white p-4 rounded-lg shadow-lg">
       <!-- Sidebar -->
-      <div class="relative bg-[url('/assets/images/bg-sidebar-mobile.svg')]  md:bg-[url('/assets/images/bg-sidebar-desktop.svg')] bg-cover w-full h-full">
+      <div class="relative  md:bg-[url('/assets/images/bg-sidebar-desktop.svg')] bg-cover w-full h-full flex flex-col items-center md:p-6">
         <!-- Step on the side image -->
-        <div class="absolute top-10 left-10 flex md:flex md:flex-col space-y-8">
+        <div class="absolute md:top-10 md:left-10 flex md:flex md:flex-col md:bottom bottom-8 md:space-x-0 space-x-4 md:space-y-2">
           <!-- Step 1 -->
           <div class="flex items-center space-x-2">
-            <button
+            <button id="step-btn"
               class="w-10 h-10 rounded-full border-2 border-light-blue flex items-center justify-center text-white hover:bg-blue-400"
             >
               1
@@ -33,7 +34,7 @@
           </div>
           <!-- Step 2 -->
           <div class="flex items-center space-x-2">
-            <button
+            <button id="step-btn"
               class="w-10 h-10 rounded-full border-2 border-light-blue flex items-center justify-center text-white"
             >
               2
@@ -46,7 +47,7 @@
           </div>
           <!-- Step 3 -->
           <div class="flex items-center space-x-2">
-            <button
+            <button id="step-btn"
               class="w-10 h-10 rounded-full border-2 border-light-blue flex items-center justify-center text-white"
             >
               3
@@ -59,7 +60,7 @@
           </div>
           <!-- Step 4 -->
           <div class="flex items-center space-x-2">
-            <button
+            <button id="step-btn"
               class="w-10 h-10 rounded-full border-2 border-light-blue flex items-center justify-center text-white"
             >
               4
@@ -74,13 +75,13 @@
       </div>
 
       <!-- Form -->
-      <div class="col-span-2 px-20 py-10">
-        <h1 class="text-4xl text-blue-900font-bold">Personal Info</h1>
-        <p class="mt-2 text-[#d6d9e6] text-[16px]">
+      <div id="form" class="md:col-span-2 md:px-20 md:py-10">
+        <h1 class="text-4xl md:mt-0 mt-4 text-blue-900 font-bold">Personal Info</h1>
+        <p class="mt-2 text-gray-500 text-[16px]">
           Please provide your name, email address, and phone number.
         </p>
 
-        <form id="form" class="space-y-4 mt-16">
+        <form id="form-fill" class="space-y-4 md:mt-16 mt-6">
           <!-- Name Input -->
           <div>
             <label for="name" class="block text-gray-700 font-medium"
@@ -97,9 +98,11 @@
 
           <!-- Email Input -->
           <div>
-            <label for="email" class="block text-gray-700 font-medium"
-              >Email</label
-            >
+            <div class="flex justify-between">
+               <label for="email" class="block text-gray-700 font-medium"
+              >Email</label> <p id="email-error" class="text-red-600 text-xs hidden">enter a valid email address</p>
+            </div>
+           
             <input
               type="email"
               id="email"
@@ -122,10 +125,11 @@
               placeholder="e.g. +1 234 567 890"
             />
           </div>
+          <p id="error" class="text-red-700 hidden">please fill all fields</p>
 
-          <!-- Nest step Button -->
+          <!-- Next step Button -->
           <div class="flex justify-end">
-            <button onclick="nextBtn()" class="px-4 py-2 mt-16 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90 mb-10"
+            <button onclick="nxtBtn()" id="nxt-btn" class="px-4 py-2 md:mt-20 md:mb-6 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90"
             >
               Next Step
             </button>
@@ -135,73 +139,74 @@
 
       <!-- Second step -->
 
-      <div class="col-span-2 px-20 py-10 hidden">
-        <h1 class="text-4xl text-blue-900 font-bold"> Select your plan</h1>
-        <p class="mt-2 text-[#d6d9e6] text-[16px]">
+      <div id="plan" class="md:col-span-2 md:px-20 md:py-10 hidden">
+        <h1 class="text-4xl  md:mt-0 text-blue-900 font-bold"> Select your plan</h1>
+        <p class="mt-2 text-gray-500 text-[16px]">
           You have the option of monthly or yearly billing.
         </p>
 
-        <div class="flex mt-8 space-x-4"> 
+        <div class="flex flex-col md:flex-row md:mt-8 mt-2 md:space-x-4 md:space-y-0 space-y-2"> 
           <!-- arcade -->
-          <section class="border border-blue-700 p-4 pr-12 rounded space-y-8 hover:border-blue-700 cursor-pointer">
+          <section id="plan-choose" class="border border-blue-700 p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 flex md:flex-col md:space-x-0 space-x-4 cursor-pointer">
             <img src="./assets/images/icon-arcade.svg" class="w-10" alt="">
             <div> 
               <h3 class="font-bold">Arcade</h3>
-              <p class="text-xs text-[#d6d9e6]">$9/mo</p>
-              <div class="hidden">
-                <p class="text-xs text-[#d6d9e6]">$90/yr</p>
+              <p id="init-price" class="text-xs text-gray-500">$9/mo</p>
+              <div id="fin-price" class="hidden">
+                <p class="text-xs text-gray-500">$90/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
           </section>
 
           <!-- advanced -->
-          <section class="border p-4 pr-12 rounded space-y-8 hover:border-blue-700 cursor-pointer">
+          <section id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
             <img src="./assets/images/icon-advanced.svg" class="w-10" alt="">
             <div> 
               <h3 class="font-bold">Advanced</h3>
-              <p class="text-xs text-[#d6d9e6]">$12/mo</p>
-              <div class="hidden">
-                <p class="text-xs text-[#d6d9e6]">$120/yr</p>
+              <p id="init-price" class="text-xs text-gray-500">$12/mo</p>
+              <div id="fin-price" class="hidden">
+                <p class="text-xs text-gray-500">$120/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
           </section>
 
           <!-- PRO -->
-          <section class="border p-4 pr-12 rounded space-y-8 hover:border-blue-700 cursor-pointer">
+          <section id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
             <img src="./assets/images/icon-pro.svg" class="w-10" alt="">
             <div> 
               <h3 class="font-bold">Pro</h3>
-              <p class="text-xs text-[#d6d9e6]">$15/mo</p>
-              <div class="hidden">
-                <p class="text-xs text-[#d6d9e6]">$150/yr</p>
+              <p id="init-price" class="text-xs text-gray-500">$15/mo</p>
+              <div id="fin-price" class="hidden">
+                <p  class="text-xs text-gray-500">$150/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
           </section>
         </div>
 
-        <div class="flex items-center justify-center mt-10 bg-blue-50 p-4 rounded-md space-x-4">
+        <div class="flex items-center justify-center md:mt-10 mt-4 bg-blue-50 p-4 rounded-md space-x-4">
           <span class="text-sm font-medium text-blue-900">Monthly</span>
            <!-- Toggle Switch -->
-           <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" id="pricingToggle" class="sr-only">
-            <div class="w-11 h-5 rounded-full bg-blue-900 peer cursor-pointer transition-colors duration-300 ease-in-out"></div>
-            <div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full peer-checked:translate-x-6 transition-transform duration-300 ease-in-out"></div>
-        </label>
-        <span class="text-sm font-medium text-gray-400">Yearly</span>
+          
+<label class="inline-flex items-center cursor-pointer">
+  <input type="checkbox" value="" id="pricingToggle" class="sr-only peer">
+  <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+</label>
+
+        <span class="text-sm font-medium text-gray-500">Yearly</span>
 
         </div>
 
-        <div class="flex mt-20 justify-between"> 
+        <div class="flex md:mt-20 mt-4 justify-between"> 
           <!-- go back button -->
           <div>
-            <button class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
+            <button id="prv-btn" class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
           </div>
           <!-- Next step Button -->
           <div class="">
-            <button
+            <button id="nxt-btn"
               class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90">
               Next Step
             </button>
@@ -210,16 +215,16 @@
       </div>
 
       <!-- Third step -->
-      <div class="col-span-2 px-20 py-10 hidden">
-        <h1 class="text-4xl text-blue-900 font-bold"> Pick add-ons</h1>
-        <p class="mt-2 text-[#d6d9e6] text-[16px]">
+      <div id="add-ons" class="md:col-span-2 md:px-20 md:py-10 hidden">
+        <h1 class="text-4xl md:mt-0 mt-4 text-blue-900 font-bold"> Pick add-ons</h1>
+        <p class="mt-2 text-gray-500 text-[16px]">
           Add-ons help enhance your gaming experience.
         </p>
 
         <div class="flex flex-col">
           <section class="flex space-x-6 border border-blue-700 rounded-md mt-6 p-4 cursor-pointer">
             <input class="cursor-pointer" type="checkbox" id="checkbox-1">
-            <div class="flex items-center space-x-24">
+            <div class="flex justify-between space-x-4">
             <div>
               <h2 class="font-bold text-base text-blue-900">Online service</h3>
               <p class="text-xs text-[#d6d9e6]">Access to multiplayer games</p>
@@ -231,7 +236,7 @@
 
           <section class="flex space-x-6 border border-blue-700 rounded-md mt-4 p-4 cursor-pointer">
             <input  class="cursor-pointer" type="checkbox" id="checkbox-1">
-            <div class="flex items-center space-x-32">
+            <div class="flex justify-between space-x-12">
             <div>
               <h2 class="font-bold text-base text-blue-900">Larger storage</h3>
               <p class="text-xs text-[#d6d9e6]">Extra 1TB of cloud save</p>
@@ -243,7 +248,7 @@
 
           <section class="flex space-x-6 border rounded-md mt-4 p-4 hover:border-blue-700 cursor-pointer">
             <input  class="cursor-pointer" type="checkbox" id="checkbox-1">
-            <div class="flex items-center space-x-24">
+            <div class="flex justify-between space-x-4">
             <div>
               <h2 class="font-bold text-base text-blue-900">Customizable Profile</h3>
               <p class="text-xs text-[#d6d9e6]">Custom theme on your profile</p>
@@ -256,14 +261,14 @@
         </div>
 
         
-        <div class="flex mt-20 justify-between"> 
+        <div class="flex md:mt-20 mt-6 justify-between"> 
           <!-- go back button -->
           <div>
-            <button class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
+            <button id="prv-btn" class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
           </div>
           <!-- Next step Button -->
           <div class="">
-            <button
+            <button id="nxt-btn"
               class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90">
               Next Step
             </button>
@@ -272,7 +277,7 @@
       </div>
 
       <!-- Fourth step -->
-      <div class="col-span-2 px-20 py-10 hidden">
+      <div id="check-up" class="md:col-span-2 md:px-20 md:py-10 hidden">
         <h1 class="text-4xl text-blue-900 font-bold"> Finishing up</h1>
         <p class="mt-2 text-[#d6d9e6] text-[16px]">
           Double-check everything looks OK before confirming.
@@ -316,14 +321,14 @@
           <span class="font-bold text-2xl text-blue-600 hidden">$120/yr</span>
         </div>
         
-        <div class="flex mt-28 justify-between"> 
+        <div class="flex md:mt-28 mt-6 justify-between"> 
           <!-- go back button -->
           <div>
-            <button class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
+            <button id="prv-btn" class="font-bold relative top-2 text-gray-400 hover:text-blue-900">Go Back</button>
           </div>
           <!-- confirm Button -->
           <div class="">
-            <button
+            <button id="confirm"
               class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90">
               Confirm
             </button>
@@ -332,12 +337,12 @@
       </div>
 
       <!-- Thank you -->
-      <div class="col-span-2 px-20 py-10 flex flex-col justify-center items-center mt-36 mb-40 space-y-6 hidden">
+      <div id="thank-you" class="md:col-span-2 md:px-20 md:py-10 flex flex-col justify-center items-center md:mt-48 md:mb-48 mt-20 mb-24 space-y-6 hidden">
         <img class="w-14" src="./assets/images/icon-thank-you.svg" alt="">
         <h1 class="text-4xl text-blue-900 font-bold"> Thank You!</h1>
-        <p class="mt-2 text-gray-500 text-[16px] text-center">
-          Thanks for confirming your subscription! We hope you have <br> fun
-          using our platform. If you ever need support, please feel <br> free to email us
+        <p class="mt-2 w-full text-gray-500 text-[16px] text-center">
+          Thanks for confirming your subscription! We hope you have fun
+          using our platform. If you ever need support, please feel free to email us
           at support@loremgaming.com.
         </p>
         </div>
