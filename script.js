@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cache elements for performance
     const steps = ['form', 'plan', 'add-ons', 'check-up', 'thank-you'];
     const stepButtons = document.querySelectorAll('#step-btn');
-    const form = document.getElementById('form-fill');
+    // const form = document.getElementById('form-fill');
     const nextButtons = document.querySelectorAll('#nxt-btn');
     const prevButtons = document.querySelectorAll('#prv-btn');
+    
   
     let currentStep = 0;
+
+    
   
     function showStep(stepIndex) {
       steps.forEach((step, index) => {
@@ -42,9 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const phone = document.getElementById('phone').value;
       const error = document.getElementById('error');
       const emailError = document.getElementById('email-error');
-
-      
-
   
       if (!name || !email || !phone) {
         error.style.display = 'block';
@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       if (!validateEmail(email)) {
-        
         emailError.style.display = 'block';
         return false;
       }
@@ -62,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     document.getElementById('pricingToggle').addEventListener('change', function() {
         const initPrice = document.getElementById('init-price');
+
         if (this.checked) {
             // Yearly pricing
             initPrice.textContent = '₦50,000';
@@ -70,37 +70,85 @@ document.addEventListener('DOMContentLoaded', () => {
             initPrice.textContent = '₦5,000';
         }
     });
+
+    // validate plan selection
+    
+    let selectedPlan = 'Arcade';
+    let selectedAddons = []
+
     function validatePlanSelection() {
-      const selectedPlan = document.querySelector('input[name="plan"]:checked');
+      const selectedPlan = document.querySelector('#plan-choose.border-blue-700');
+      const planError = document.getElementById('plan-error')
       if (!selectedPlan) {
-        alert('Please select a plan.');
+        planError.style.display = 'block';
         return false;
       }
       return true;
-
-      
     }
+
+    const planSelect = document.querySelectorAll('#plan-choose');
+
+    planSelect.forEach(button => {
+      button.addEventListener('click', () => {
+        selectedPlan = button.querySelector('#plan-name').textContent;
+        planSelect.forEach(btn => btn.classList.remove('border-blue-700')
+      )
+        button.classList.add('border-blue-700')
+      })
+    })
+
+
+    // validate addons
+    const addonsCheckboxes = document.querySelectorAll('#cont-addons input[type="checkbox"]');
   
     function validateAddOns() {
-      // Assuming no validation needed for add-ons; customize if required
+      
       return true;
     }
+
+    addonsCheckboxes.forEach((checkbox, idx) => {
+      checkbox.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          selectedAddons.push({
+            name: document.querySelectorAll('#addon-content #addon-name')[idx].textContent,
+            price: document.querySelectorAll('#addon-price')[idx].textContent
+          })
+        } else{
+          selectedAddons = selectedAddons.filter(addon => addon.name !== document.querySelectorAll('#addon-content #addon-name')[idx].textContent)
+        }
+      })
+    })
   
     function validateEmail(email) {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
     }
+
+    const summaryTitle = document.querySelector('#summary-container #summary-title');
+    const summaryPrice = document.querySelector('#summary-container #summary-price');
+    const summaryAddons = document.querySelector('#summary-addons');
+    const totalSum = document.querySelector('total-sum');
+
+    // update summary
+
+    const updateSummary = () => {
+      summaryTitle.textContent = selectedPlan;
+    }
   
     function handleNextStep(event) {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault();
       if (validateStep(currentStep)) {
         currentStep++;
         showStep(currentStep);
       }
+
+      if (currentStep === 4) {
+        updateSummary();
+      }
     }
   
     function handlePreviousStep(event) {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault();
       if (currentStep > 0) {
         currentStep--;
         showStep(currentStep);
@@ -110,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     nextButtons.forEach(button => {
       button.addEventListener('click', handleNextStep);
+      updateSummary();
     });
   
     prevButtons.forEach(button => {

@@ -129,7 +129,7 @@
 
           <!-- Next step Button -->
           <div class="flex justify-end">
-            <button onclick="nxtBtn()" id="nxt-btn" class="px-4 py-2 md:mt-20 md:mb-6 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90"
+            <button id="nxt-btn" class="px-4 py-2 md:mt-20 md:mb-6 bg-blue-900 text-white rounded-md hover:bg-Marine-blue/90"
             >
               Next Step
             </button>
@@ -144,46 +144,48 @@
         <p class="mt-2 text-gray-500 text-[16px]">
           You have the option of monthly or yearly billing.
         </p>
+        
+        <p id="plan-error" class="text-red-600 mt-6 hidden">please select a plan</p>
 
-        <div class="flex flex-col md:flex-row md:mt-8 mt-2 md:space-x-4 md:space-y-0 space-y-2"> 
+        <div class="flex flex-col md:flex-row md:mt-8 mt-2 md:space-x-4 md:space-y-0 space-y-2">
           <!-- arcade -->
-          <section id="plan-choose" class="border border-blue-700 p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 flex md:flex-col md:space-x-0 space-x-4 cursor-pointer">
+          <button id="plan-choose" name="click" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 flex md:flex-col md:space-x-0 space-x-4 cursor-pointer">
             <img src="./assets/images/icon-arcade.svg" class="w-10" alt="">
             <div> 
-              <h3 class="font-bold">Arcade</h3>
+              <h3 id="plan-name" class="font-bold">Arcade</h3>
               <p id="init-price" class="text-xs text-gray-500">$9/mo</p>
               <div id="fin-price" class="hidden">
                 <p class="text-xs text-gray-500">$90/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
-          </section>
+          </button>
 
           <!-- advanced -->
-          <section id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
+          <button id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
             <img src="./assets/images/icon-advanced.svg" class="w-10" alt="">
             <div> 
-              <h3 class="font-bold">Advanced</h3>
+              <h3 id="plan-name" class="font-bold">Advanced</h3>
               <p id="init-price" class="text-xs text-gray-500">$12/mo</p>
               <div id="fin-price" class="hidden">
                 <p class="text-xs text-gray-500">$120/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
-          </section>
+          </button>
 
           <!-- PRO -->
-          <section id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
+          <button id="plan-choose" class="border p-4 pr-12 rounded md:space-y-8 hover:border-blue-700 cursor-pointer flex md:flex-col md:space-x-0 space-x-4">
             <img src="./assets/images/icon-pro.svg" class="w-10" alt="">
             <div> 
-              <h3 class="font-bold">Pro</h3>
+              <h3 id="plan-name" class="font-bold">Pro</h3>
               <p id="init-price" class="text-xs text-gray-500">$15/mo</p>
               <div id="fin-price" class="hidden">
                 <p  class="text-xs text-gray-500">$150/yr</p>
                 <p class="text-xs text-blue-900 font-medium">2 months free</p>
               </div>
             </div>
-          </section>
+          </button>
         </div>
 
         <div class="flex items-center justify-center md:mt-10 mt-4 bg-blue-50 p-4 rounded-md space-x-4">
@@ -222,38 +224,38 @@
         </p>
 
         <div class="flex flex-col">
-          <section class="flex space-x-6 border border-blue-700 rounded-md mt-6 p-4 cursor-pointer">
+          <section id="cont-addons" class="flex space-x-6 border border-blue-700 rounded-md mt-6 p-4 cursor-pointer">
             <input class="cursor-pointer" type="checkbox" id="checkbox-1">
             <div class="flex justify-between space-x-4">
-            <div>
-              <h2 class="font-bold text-base text-blue-900">Online service</h3>
-              <p class="text-xs text-[#d6d9e6]">Access to multiplayer games</p>
+            <div id="addon-content">
+              <h2 id="addon-name" class="font-bold text-base text-blue-900">Online service</h3>
+              <p id="plan-price" class="text-xs text-[#d6d9e6]">Access to multiplayer games</p>
             </div>
-              <p class="text-xs text-blue-900">+$1/mo</p>
+              <p id="addon-price" class="text-xs text-blue-900">+$1/mo</p>
               <p class="text-xs text-blue-900 hidden">+$10/mo</p>
             </div>
           </section>
 
-          <section class="flex space-x-6 border border-blue-700 rounded-md mt-4 p-4 cursor-pointer">
+          <section id="cont-addons" class="flex space-x-6 border border-blue-700 rounded-md mt-4 p-4 cursor-pointer">
             <input  class="cursor-pointer" type="checkbox" id="checkbox-1">
             <div class="flex justify-between space-x-12">
-            <div>
-              <h2 class="font-bold text-base text-blue-900">Larger storage</h3>
-              <p class="text-xs text-[#d6d9e6]">Extra 1TB of cloud save</p>
+            <div id="addon-content">
+              <h2 id="addon-name" class="font-bold text-base text-blue-900">Larger storage</h3>
+              <p id="plan-price" class="text-xs text-[#d6d9e6]">Extra 1TB of cloud save</p>
             </div>
-              <p class="text-xs text-blue-900">+$2/mo</p>
+              <p id="addon-price" class="text-xs text-blue-900">+$2/mo</p>
               <p class="text-xs text-blue-900 hidden">+$20/mo</p>
             </div>
           </section>
 
-          <section class="flex space-x-6 border rounded-md mt-4 p-4 hover:border-blue-700 cursor-pointer">
+          <section id="cont-addons" class="flex space-x-6 border rounded-md mt-4 p-4 hover:border-blue-700 cursor-pointer">
             <input  class="cursor-pointer" type="checkbox" id="checkbox-1">
             <div class="flex justify-between space-x-4">
-            <div>
-              <h2 class="font-bold text-base text-blue-900">Customizable Profile</h3>
-              <p class="text-xs text-[#d6d9e6]">Custom theme on your profile</p>
+            <div id="addon-content">
+              <h2 id="addon-name class="font-bold text-base text-blue-900">Customizable Profile</h3>
+              <p id="plan-price" class="text-xs text-[#d6d9e6]">Custom theme on your profile</p>
             </div>
-              <p class="text-xs text-blue-900">+$2/mo</p>
+              <p id="addon-price" class="text-xs text-blue-900">+$2/mo</p>
               <p class="text-xs text-blue-900 hidden">+$20/mo</p>
             </div>
           </section>
@@ -283,41 +285,43 @@
           Double-check everything looks OK before confirming.
         </p>
 
-        <div class="bg-blue-50 p-4 rounded-md mb-4 mt-10">
+        <div id="summary-container" class="bg-blue-50 p-4 rounded-md mb-4 mt-10">
           <!-- plan calc -->
-          <div class="flex justify-between items-center">
+          <div id="summary-row" class="flex justify-between items-center">
             <span>
-              <h3 class="font-medium text-blue-900">Arcade (Monthly)</h3>
+              <h3 id="summary-title" class="font-medium text-blue-900">Arcade (Monthly)</h3>
               <h3 class="font-medium text-blue-900 hidden">Arcade (Yearly)</h3>
               <button class="font-normal text-sm border-b mb-4 text-gray-400">change</button>
             </span>           
-            <span class="font-bold text-blue-900">$9/mo</span>
+            <span id="summary-price" class="font-bold text-blue-900">$9/mo</span>
             <span class="font-bold text-blue-900 hidden">$90/yr</span>
           </div>
           <!-- horizontal line -->
           <hr>
-          <div class="flex justify-between items-center mt-6">
+          <div id="summary-addons">
+          <div id="summary-row" class="flex justify-between items-center mt-6">
             <span>
-              <h3 class="font-normal text-sm text-gray-400">Online service</h3>
+              <h3 id="summary-title" class="font-normal text-sm text-gray-400">Online service</h3>
             </span>           
-            <span class="font-medium text-xs text-blue-900">+$1/mo</span>
+            <span id="summary-price" class="font-medium text-xs text-blue-900">+$1/mo</span>
             <span class="font-medium text-xs text-blue-900 hidden">+$10/yr</span>
           </div>
 
-          <div class="flex justify-between items-center mt-2">
+          <div id="summary-row" class="flex justify-between items-center mt-2">
             <span>
-              <h3 class="font-normal text-sm text-gray-400">Larger storage</h3>
+              <h3 id="summary-title" class="font-normal text-sm text-gray-400">Larger storage</h3>
             </span>           
-            <span class="font-medium text-xs text-blue-900">+$2/mo</span>
+            <span id="summary-price class="font-medium text-xs text-blue-900">+$2/mo</span>
             <span class="font-medium text-xs text-blue-900 hidden">+$20/yr</span>
           </div>
+        </div>
         </div>
 
         <div class="flex justify-between items-center mt-2">
           <span>
             <h3 class="font-normal relative left-4 text-gray-400">Total(per month)</h3>
           </span>           
-          <span class="font-bold text-2xl text-blue-600">$12/mo</span>
+          <span id="total-sum" class="font-bold text-2xl text-blue-600">$12/mo</span>
           <span class="font-bold text-2xl text-blue-600 hidden">$120/yr</span>
         </div>
         
