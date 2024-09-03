@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update step buttons
       stepButtons.forEach((button, index) => {
         button.classList.toggle('bg-blue-900', index <= stepIndex);
-        button.classList.toggle('border-light-blue', index <= stepIndex); // Make sure to keep the border
+        button.classList.toggle('border-light-blue', index <= stepIndex);
       });
     }
   
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         case 2:
           return validateAddOns();
         case 3:
-          return true; // No validation needed for the summary step
+          return true; 
         default:
           return false;
       }
@@ -58,16 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
       return true;
     }
-  
+
+    // toggle switch
     document.getElementById('pricingToggle').addEventListener('change', function() {
         const initPrice = document.getElementById('init-price');
 
         if (this.checked) {
             // Yearly pricing
-            initPrice.textContent = '₦50,000';
+            initPrice.textContent = '$90/yr';
         } else {
             // Monthly pricing
-            initPrice.textContent = '₦5,000';
+            initPrice.textContent = '$9/mo';
         }
     });
 
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validatePlanSelection() {
       const selectedPlan = document.querySelector('#plan-choose.border-blue-700');
-      const planError = document.getElementById('plan-error')
+      const planError = document.getElementById('plan-error');
       if (!selectedPlan) {
         planError.style.display = 'block';
         return false;
@@ -133,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateSummary = () => {
       summaryTitle.textContent = selectedPlan;
+      // summaryPrice.textContent = document.querySelector(`#${selectedPlan.toLowerCase()} #init-price`).textContent;
     }
   
     function handleNextStep(event) {
@@ -142,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showStep(currentStep);
       }
 
-      if (currentStep === 4) {
+      if (currentStep) {
         updateSummary();
       }
     }
@@ -165,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
       button.addEventListener('click', handlePreviousStep);
     });
   
-    // Initialize the form to show the first step
     showStep(currentStep);
   });
   
